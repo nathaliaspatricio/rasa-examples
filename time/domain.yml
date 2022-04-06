@@ -1,6 +1,7 @@
 version: "3.0"
 
 intents:
+  - start
   - greet
   - goodbye
   - affirm
@@ -40,6 +41,9 @@ slots:
         entity: name
 
 responses:
+
+  utter_start:
+  - text: "Oi, sou o Stephen Hawking. Quem é você?"
 
   utter_cheer_up:
   - text: "Aqui está algo para te animar:"

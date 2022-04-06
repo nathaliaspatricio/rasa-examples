@@ -7,6 +7,11 @@ rules:
   - intent: greet
   - action: action_greet
 
+- rule: start bot in Telegram
+  steps:
+  - intent: start
+  - action: utter_start
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye

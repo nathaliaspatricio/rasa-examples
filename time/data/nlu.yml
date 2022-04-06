@@ -1,6 +1,10 @@
 version: "3.0"
 
 nlu:
+- intent: start
+  examples: |
+    - /start
+
 - intent: insult
   examples: |
     - merda
@@ -152,6 +156,7 @@ nlu:
     - eu estou bem
     - eu me sinto bem, obrigado
     - estou feliz
+    - estou tão animado
     - perfect
     - great
     - amazing
@@ -198,10 +203,14 @@ nlu:
     - não me sinto nada bem
     - não muito bem
     - não estou feliz
+    - não estou muito feliz
+    - infeliz
     - muito triste
     - infeliz
     - me sinto mal
     - estou desapontado
+    - não estou legal
+    - mais ou menos
     - my day was horrible
     - I am sad
     - I don't feel very well
@@ -216,15 +225,19 @@ nlu:
     - extremly sad
     - so saad
     - so sad
+    - more or less
+    - so so
 
 - intent: inquire_time
   examples: |
     - que horas são?
     - que horas são agora?
     - me diga que horas são.
+    - quero saber a hora
     - Que horas são em [Berlin](place)?
     - Que horas são agora em [London](place)?
-    - Me diga que horas são em [Lisbon].
+    - Me diga que horas são em [Lisbon](place).
+    - quero saber a hora em [amsterdam](place)
     - What time is it?
     - What time is it in [Amsterdam](place)?
     - What time is it in [Berlin](place)? 
