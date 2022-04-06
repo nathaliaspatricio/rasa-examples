@@ -1,0 +1,86 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - where_i_live
+  - inquire_time
+  - inquire_time_difference
+  - functionalities
+  - thanks
+  - insult
+
+entities:
+  - place
+  - location
+  - name
+slots:
+  place:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: place
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: name
+
+responses:
+
+  utter_cheer_up:
+  - text: "Aqui está algo para te animar:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Te ajudou?"
+  - text: "Está se sentindo melhor?"
+
+  utter_happy:
+  - text: "Ótimo, continue assim!"
+  - text: "Que bom!"
+
+  utter_goodbye:
+  - text: "Tchau!"
+  - text: "Até uma próxima!"
+
+  utter_youre_welcome:
+  - text: "De nada! É um prazer poder ajudar."
+  - text: "De nada! Se precisar de algo mais avise!"
+
+  utter_insult:
+  - text: "Eu sou um bot, mas não precisa me insultar."
+  - text: "Você não está sendo educado comigo."
+  - text: "Você precisa ser mais educado."
+  - text: "Não é correto insultar os outros."
+  - text: "Não te fiz nada. Não precisa me insultar"
+
+  utter_iamabot:
+  - text: "Eu sou um bot, desenvolvido pela Rasa."
+
+  utter_functionalities:
+  - text: "Eu consigo te responder o horário em diferentes lugares do planeta e também te dizer a diferença em horas para onde você mora."
+  - text: "Eu posso te dizer o horário em diferentes lugares do mundo e também te falar a diferença em horas para a cidade que você mora."
+
+actions:
+  - action_remember_where
+  - action_tell_time
+  - action_time_difference
+  - action_greet
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

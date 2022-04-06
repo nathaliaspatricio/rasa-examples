@@ -1,0 +1,297 @@
+version: "3.0"
+
+nlu:
+- intent: insult
+  examples: |
+    - merda
+    - tomar no cu
+    - vai se foder
+    - vai se ferrar
+    - mula
+    - idiota
+    - credo
+    - cruz credo
+    - estúpido
+    - vai cagar no mato
+    - fdp
+    - filho da puta
+    - maldito bot
+    - odeio esse bot
+    - que bosta
+    - caralho
+    - que cagado
+    - que desgraçado
+    - que ódio desse bot
+    - é muito burro
+    - besta
+    - não sabe nada
+    - para de falar
+    - para de falar merda
+    - para de falar estupidez
+    - para de falar coisa errada
+    - para de ser besta 
+    - tonto
+    - para de ser tonto
+    - shit
+    - son of a bitch
+    - idiot
+    - i hate this bot
+
+- intent: greet
+  examples: |
+    - oi
+    - oi, meu nome é [luis](name).
+    - olá, eu sou a [maria](name).
+    - oie, sou o [João](name)
+    - oi, meu nome é [José](name).
+    - olá, eu sou a [Ana](name).
+    - oie, sou o [Joaquim](name)
+    - oi, meu nome é [Paulo](name).
+    - olá, eu sou a [Ângela](name).
+    - oie, sou o [Beatriz](name)
+    - oie
+    - olar
+    - olá
+    - bom dia
+    - boa tarde
+    - boa noite
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - tchau
+    - até mais
+    - te vejo mais tarde
+    - tenha um bom dia
+    - tenha uma boa noite
+    - inté
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: thanks
+  examples: |
+    - obrigada
+    - muito obrigada
+    - obrigado
+    - muito obrigado
+    - agradecido
+    - agradecida
+    - muito agradecida
+    - obrigada pela informação
+    - obrigado pela informação
+    - muito obrigada pela ajuda
+    - obrigado pela ajuda
+    - thanks
+    - tks
+    - thank you
+    - tks u
+    - thanks very much
+    - thanks for the information
+    - thanks for the help
+
+- intent: affirm
+  examples: |
+    - sim
+    - claro
+    - com certeza
+    - boa ideia!
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - não
+    - nunca
+    - jamais
+    - eu não acho
+    - com certeza não
+    - eu não acho
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfeito
+    - ótimo
+    - maravilhoso
+    - eu estou ótimo
+    - me sinto muito bem
+    - bem, obrigado
+    - muito bem
+    - maravilhosamente bem
+    - perfeitamente bem
+    - eu estou bem
+    - eu me sinto bem, obrigado
+    - estou feliz
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: functionalities
+  examples: |
+    - o que você sabe fazer?
+    - o que você pode responder?
+    - você serve para que?
+    - quais são as suas funcionalidades?
+    - o que eu posso te perguntar?
+    - quais perguntas posso te fazer?
+    - qual é a sua função?
+    - quais perguntas você sabe responder?
+    - ajuda
+    - what do you know?
+    - what can you do?
+    - what kind of answers can you give me?
+    - what can you answer?
+    - what kind of responses can I have from you?
+    - what is your function?
+    - what can I ask you?
+    - what is your purpose?
+    - help
+
+- intent: mood_unhappy
+  examples: |
+    - horrível
+    - meu dia foi horrível
+    - estou triste
+    - eu não me sinto muito bem
+    - não me sinto bem
+    - não me sinto nada bem
+    - não muito bem
+    - não estou feliz
+    - muito triste
+    - infeliz
+    - me sinto mal
+    - estou desapontado
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: inquire_time
+  examples: |
+    - que horas são?
+    - que horas são agora?
+    - me diga que horas são.
+    - Que horas são em [Berlin](place)?
+    - Que horas são agora em [London](place)?
+    - Me diga que horas são em [Lisbon].
+    - What time is it?
+    - What time is it in [Amsterdam](place)?
+    - What time is it in [Berlin](place)? 
+    - tell me time in [Lisbon](place)?
+    - What is the current time in [London](place)?
+    - what time is it in [amsterdam](place)?
+
+- lookup: place
+  examples: |
+        - brussels
+        - zagreb
+        - brasilia
+        - paris
+        - washington
+        - moscow
+        - buenos aires
+        - london
+        - lisbon
+        - madrid
+        - amsterdam
+        - cairo
+        - karlsruhe 
+        - berlin
+
+- intent: where_i_live
+  examples:  |
+    - por favor, lembre-se que eu vivo em [Amsterdam](place).
+    - minha casa é em [London](place).
+    - nota: eu vivo em [Lisbon](place).
+    - minha residência é em [Berlin](place).
+    - lembre-se que eu moro em [london].
+    - moro em [brussels](place).
+    - estou em [cairo](place).
+    - please remember that i live in [Amsterdam](place).
+    - my house is in [London](place).
+    - reminder. i live in [Lisbon](place)
+    - my residence is in [Berlin](place)
+    - remember that i live in [london](place)
+    - i live in [brussels](place)
+    - i am in [cairo](place)
+
+- intent: inquire_time_difference
+  examples: |
+    - diferença horária com [Amsterdam](place).
+    - quantas horas de diferença para [amsterdam](place)?
+    - qual é a diferença em horas para [brussels](place).
+    - quão grande é a diferença em horas com [london](place).
+    - há diferença em horas com [berlin](place)?
+    - me diga a diferença em horas com [cairo](place).
+    - quero saber quantas horas de diferença com [cairo](place).
+    - time difference between [Amsterdam](place)
+    - what is my time difference with [London](place)?
+    - how big is the time delta with [Lisbon](place)?
+    - is there a time difference with [Berlin](place)?
+    - what is the time difference with [amsterdam](place)?
+    - tell me the time difference with [brussels](place)
+        
+- intent: bot_challenge
+  examples: |
+    - você é um bot?
+    - você é um humano?
+    - vc é um bot?
+    - vc é um humano?
+    - bot ou humano?
+    - estou falanco com um bot?
+    - estou falando com um humano?
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?

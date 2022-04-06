@@ -1,0 +1,48 @@
+version: "3.0"
+
+rules:
+
+- rule: Greet me
+  steps: 
+  - intent: greet
+  - action: action_greet
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say you're welcome when the user thanks
+  steps:
+  - intent: thanks
+  - action: utter_youre_welcome
+
+- rule: Say the user are insulting you
+  steps:
+  - intent: insult
+  - action: utter_insult
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Say what is my main functionality
+  steps:
+  - intent: functionalities
+  - action: utter_functionalities
+
+- rule: Tell me the time
+  steps: 
+  - intent: inquire_time
+  - action: action_tell_time
+
+- rule: Where I live intent
+  steps: 
+  - intent: where_i_live
+  - action: action_remember_where
+
+- rule: Time Difference intent
+  steps: 
+  - intent: inquire_time_difference
+  - action: action_time_difference
