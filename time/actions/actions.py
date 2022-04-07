@@ -11,9 +11,11 @@ from typing import Any, Text, Dict, List
 import arrow
 import dateparser
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
+from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
 
 city_db = {
     'brussels': 'Europe/Brussels',
@@ -32,25 +34,79 @@ city_db = {
     'berlin': 'Europe/Berlin',
 }
 
-class ActionGreet(Action):
+ALLOWED_EDUCATION_LEVELS = [
+    "Ensino Fundamental",
+    "Ensino Médio",
+    "Ensino Técnico",
+    "Ensino Superior",
+    "Especialização",
+    "Mestrado",
+    "Doutorado",
+]
 
+class AskForEducationLevelAction(Action):
     def name(self) -> Text:
-        return "action_greet"
+        return "action_ask_education_level"
 
-    def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        name = next(tracker.get_latest_entity_values("name"), None)
-        
-        if not name:
-            msg = f"Oi, como você está?"
-            dispatcher.utter_message(text=msg)
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        if tracker.get_slot("person_register"):
+            dispatcher.utter_message(
+                text=f"Qual é o seu nível educacional?",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS],
+            )
         else:
-            msg = f"Oi, {name}. Como você está?"
-            dispatcher.utter_message(text=msg)
-        
+            dispatcher.utter_message(
+                text=f"Tchau!",
+            )
         return []
+
+class ValidateSimplePersonForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_simple_person_form"
+
+    def validate_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `name` value."""
+
+        if isinstance(slot_value.lower(), str):
+            dispatcher.utter_message(text=f"OK! Seu nome é {slot_value}.")
+            return {"name": slot_value}
+        dispatcher.utter_message(text=f"Por favor, digite apenas caracteres.")
+        return {"name": None}
+
+    def validate_age(
+        self,
+        slot_value: float,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `age` value."""
+
+        dispatcher.utter_message(text=f"OK! Você tem {slot_value} anos.")
+        return {"age": slot_value}
+
+    def validate_education_level(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `education_level` value."""
+
+        if slot_value not in ALLOWED_EDUCATION_LEVELS:
+            dispatcher.utter_message(text=f"Eu não reconheço esse nível educacional. Escolha entre: {'/'.join(ALLOWED_EDUCATION_LEVELS)}.")
+            return {"education_level": None}
+        dispatcher.utter_message(text=f"OK! Você tem o seguinte nível educacional: {slot_value}.")
+        return {"education_level": slot_value}
 
 class ActionRememberWhere(Action):
 

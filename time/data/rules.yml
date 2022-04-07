@@ -2,11 +2,6 @@ version: "3.0"
 
 rules:
 
-- rule: Greet me
-  steps: 
-  - intent: greet
-  - action: action_greet
-
 - rule: start bot in Telegram
   steps:
   - intent: start
@@ -51,3 +46,34 @@ rules:
   steps: 
   - intent: inquire_time_difference
   - action: action_time_difference
+
+- rule: Activate Person Form
+  steps:
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+
+- rule: Submit Person Form
+  condition:
+  - active_loop: simple_person_form
+  steps:
+  - action: simple_person_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: utter_person_slots
+
+- rule: Interruption in Person Form
+  condition:
+  # Condition that form is active.
+  - active_loop: simple_person_form
+  steps:
+  # This unhappy path handles the case of an intent `bot_challenge`.
+  - intent: bot_challenge
+  - action: utter_iamabot
+  # Return to form after handling the `bot_challenge` intent
+  - action: simple_person_form
+  - active_loop: simple_person_form
+

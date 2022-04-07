@@ -5,6 +5,7 @@ intents:
   - greet
   - goodbye
   - affirm
+  - inform
   - deny
   - mood_great
   - mood_unhappy
@@ -15,11 +16,23 @@ intents:
   - functionalities
   - thanks
   - insult
+  - stop
+  - register_person
+
+forms:
+  simple_person_form:
+    required_slots:
+      - name
+      - age
+      - education_level
 
 entities:
   - place
   - location
   - name
+  - age
+  - education_level
+
 slots:
   place:
     type: text
@@ -39,12 +52,25 @@ slots:
     mappings:
       - type: from_entity
         entity: name
+  education_level:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: education_level
+  age:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: age
 
 responses:
 
   utter_start:
-  - text: "Oi, sou o Stephen Hawking. Quem é você?"
-
+  - text: "Oi, sou o Stephen Hawking. Como posso te ajudar?"
+  utter_greet:
+  - text: Oi! Como você está?
   utter_cheer_up:
   - text: "Aqui está algo para te animar:"
     image: "https://i.imgur.com/nGF1K8f.jpg"
@@ -76,14 +102,37 @@ responses:
   - text: "Eu sou um bot, desenvolvido pela Rasa."
 
   utter_functionalities:
-  - text: "Eu consigo te responder o horário em diferentes lugares do planeta e também te dizer a diferença em horas para onde você mora."
-  - text: "Eu posso te dizer o horário em diferentes lugares do mundo e também te falar a diferença em horas para a cidade que você mora."
+  - text: "Eu tenho duas funções: \n 1) Eu consigo te responder o horário em diferentes lugares do planeta e também te dizer a diferença em horas para onde você mora. \n 2) Posso fazer seu cadastro no nosso sistema."
+  - text: "Eu tenho duas funções: \n 1) Eu posso te dizer o horário em diferentes lugares do mundo e também te falar a diferença em horas para a cidade que você mora. \n 2) Posso te registrar no nosso sistema."
+
+  utter_submit:
+  - text: "Eu vou submeter o seu cadastro agora!"
+  utter_person_slots:
+  - text: "Seu cadastro:\n
+            - Nome: {name}\n
+            - Idade: {age} anos\n
+            - Nível educacional: {education_level}"  
+  utter_ask_continue:
+  - text: Você tem certeza que deseja parar o preenchimento do formulário?
+  utter_start_register:
+  - text: "Ok, então vamos começar o seu cadastro."
+  utter_stop_register:
+  - text: "Ok, então vou parar o seu cadastro."
+  utter_continue_register:
+  - text: "Ok, então vamos continuar o seu cadastro."
+  utter_ask_name:
+  - text: "Qual é o seu nome?"
+  utter_ask_age:
+  - text: Qual a sua idade?
+  utter_ask_education_level:
+  - text: Qual é o seu nível educacional?
 
 actions:
   - action_remember_where
   - action_tell_time
   - action_time_difference
-  - action_greet
+  - validate_simple_person_form
+  - utter_submit
 
 session_config:
   session_expiration_time: 60

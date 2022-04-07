@@ -4,15 +4,17 @@ stories:
 
 - story: happy path
   steps:
-#  - intent: greet
-#  - action: utter_greet
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
   - intent: mood_great
   - action: utter_happy
 
 - story: sad path 1
   steps:
-#  - intent: greet
-#  - action: utter_greet
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
@@ -21,10 +23,171 @@ stories:
 
 - story: sad path 2
   steps:
-#  - intent: greet
-#  - action: utter_greet
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
   - intent: mood_unhappy
   - action: utter_cheer_up
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: josé
+  - slot_was_set:
+    - requested_slot: age
+  - slot_was_set:
+    - age: 16
+  - slot_was_set:
+    - requested_slot: education_level
+  - slot_was_set:
+    - education_level: mestrado
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_person_slots
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: User interrupts the form and doesn't want to continue
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - intent: stop
+  - action: utter_ask_continue
+  - or: 
+    - intent: stop
+    - intent: affirm
+  - action: action_deactivate_loop
+  - action: utter_stop_register
+  - active_loop: null
+
+
+- story: interactive_story_2
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: stop
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_stop_register
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_1
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: ana
+  - slot_was_set:
+    - name: ana
+  - slot_was_set:
+    - requested_slot: age
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_3
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: ana
+  - slot_was_set:
+    - name: ana
+  - slot_was_set:
+    - requested_slot: age
+  - slot_was_set:
+    - age: 56
+  - slot_was_set:
+    - requested_slot: education_level
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_4
+  steps:
+  - action: utter_start
+  - intent: greet
+  - action: utter_greet
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: maria
+  - slot_was_set:
+    - requested_slot: age
+  - slot_was_set:
+    - age: 23
+  - slot_was_set:
+    - requested_slot: education_level
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: deny
+  - action: utter_continue_register
+  - action: simple_person_form
+  - active_loop: simple_person_form

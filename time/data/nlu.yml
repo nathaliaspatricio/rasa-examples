@@ -4,6 +4,7 @@ nlu:
 - intent: start
   examples: |
     - /start
+    - start
 
 - intent: insult
   examples: |
@@ -18,6 +19,7 @@ nlu:
     - estúpido
     - vai cagar no mato
     - fdp
+    - vsf
     - filho da puta
     - maldito bot
     - odeio esse bot
@@ -44,15 +46,6 @@ nlu:
 - intent: greet
   examples: |
     - oi
-    - oi, meu nome é [luis](name).
-    - olá, eu sou a [maria](name).
-    - oie, sou o [João](name)
-    - oi, meu nome é [José](name).
-    - olá, eu sou a [Ana](name).
-    - oie, sou o [Joaquim](name)
-    - oi, meu nome é [Paulo](name).
-    - olá, eu sou a [Ângela](name).
-    - oie, sou o [Beatriz](name)
     - oie
     - olar
     - olá
@@ -81,6 +74,7 @@ nlu:
     - tenha um bom dia
     - tenha uma boa noite
     - inté
+    - adeus
     - cu
     - good by
     - cee you later
@@ -172,6 +166,14 @@ nlu:
     - so good
     - so perfect
 
+- intent: register_person
+  examples: |
+    - quero me registrar
+    - quero me cadastrar
+    - Cadastro
+    - registro
+    - cadastrar pessoa
+
 - intent: functionalities
   examples: |
     - o que você sabe fazer?
@@ -183,6 +185,7 @@ nlu:
     - qual é a sua função?
     - quais perguntas você sabe responder?
     - ajuda
+    - me ajuda
     - what do you know?
     - what can you do?
     - what kind of answers can you give me?
@@ -228,6 +231,22 @@ nlu:
     - more or less
     - so so
 
+- intent: stop
+  examples: |
+    - para
+    - parar o cadastro
+    - parar o formulário
+    - eu quero parar
+    - por favor, pare
+    - pare de me perguntar
+    - não quero mais responder
+    - esquece esse formulário
+    - stop
+    - nevermind
+    - please stop
+    - i want to stop
+    - stop the form
+
 - intent: inquire_time
   examples: |
     - que horas são?
@@ -268,9 +287,10 @@ nlu:
     - minha casa é em [London](place).
     - nota: eu vivo em [Lisbon](place).
     - minha residência é em [Berlin](place).
-    - lembre-se que eu moro em [london].
+    - lembre-se que eu moro em [london](place).
     - moro em [brussels](place).
     - estou em [cairo](place).
+    - sou de [berlin](place)
     - please remember that i live in [Amsterdam](place).
     - my house is in [London](place).
     - reminder. i live in [Lisbon](place)
@@ -294,7 +314,7 @@ nlu:
     - is there a time difference with [Berlin](place)?
     - what is the time difference with [amsterdam](place)?
     - tell me the time difference with [brussels](place)
-        
+
 - intent: bot_challenge
   examples: |
     - você é um bot?
@@ -302,9 +322,32 @@ nlu:
     - vc é um bot?
     - vc é um humano?
     - bot ou humano?
-    - estou falanco com um bot?
+    - estou falando com um bot?
     - estou falando com um humano?
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: inform
+  examples: |
+    - meu nome é [luis](name).
+    - eu sou a [maria](name).
+    - sou o [João](name)
+    - meu nome é [José](name).
+    - eu sou a [Ana](name).
+    - sou o [Joaquim](name)
+    - meu nome é [Paulo](name).
+    - eu sou a [Ângela](name).
+    - sou [Beatriz](name)
+    - tenho [16](age) anos
+    - tenho [20](age) anos de idade
+    - [35](age) anos
+    - [62](age) anos de idade
+    - [12](age)
+    - eu tenho [graduação](education_level)
+    - terminei meu [mestrado](education_level)
+    - meu nível educacional é [ensino técnico](education_level)
+    - finalizei apenas o [ensino fundamental](education_level)
+    - fiz até o [ensino médio](education_level)
+    - tenho [doutorado](education_level)
