@@ -141,7 +141,7 @@ actions:
   - action_tell_time
   - action_time_difference
   - validate_simple_person_form
-  - utter_submit
+  - action_submit
   - action_ask_education_level
 
 session_config:

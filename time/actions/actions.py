@@ -16,6 +16,7 @@ from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
+from db_connectivity import DataUpdate
 
 city_db = {
     'Brussels': 'Europe/Brussels',
@@ -43,6 +44,26 @@ ALLOWED_EDUCATION_LEVELS = [
     "Mestrado",
     "Doutorado",
 ]
+
+
+class ActionSubmit(Action):
+    def name(self) -> Text:
+        return "action_submit"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+
+        name = tracker.get_slot("name")
+        age = tracker.get_slot("age")
+        education_level = tracker.get_slot("education_level")
+
+        dispatcher.utter_message(text=f"Eu vou submeter o seu cadastro agora!")
+        msg = f"Seu cadastro:\n - Nome: {name} \n - Idade: {age} anos\n - Nível educacional: {education_level}"  
+        DataUpdate(name, age, education_level)
+        dispatcher.utter_message(text=msg)
+
+        return []
 
 class AskForEducationLevelAction(Action):
     def name(self) -> Text:

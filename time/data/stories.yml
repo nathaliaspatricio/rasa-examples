@@ -4,7 +4,6 @@ stories:
 
 - story: happy path
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_great
@@ -12,7 +11,6 @@ stories:
 
 - story: sad path 1
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_unhappy
@@ -23,7 +21,6 @@ stories:
 
 - story: sad path 2
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_unhappy
@@ -34,7 +31,6 @@ stories:
 
 - story: interactive_story_1
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_great
@@ -58,14 +54,12 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - active_loop: null
-  - action: utter_submit
-  - action: utter_person_slots
+  - action: action_submit
   - intent: goodbye
   - action: utter_goodbye
 
 - story: User interrupts the form and doesn't want to continue
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_great
@@ -86,7 +80,6 @@ stories:
 
 - story: interactive_story_2
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: mood_great
@@ -110,7 +103,6 @@ stories:
 
 - story: interactive_story_1
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: register_person
@@ -137,7 +129,6 @@ stories:
 
 - story: interactive_story_3
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: register_person
@@ -168,7 +159,6 @@ stories:
 
 - story: interactive_story_4
   steps:
-  - action: utter_start
   - intent: greet
   - action: utter_greet
   - intent: register_person
