@@ -52,18 +52,27 @@ slots:
     mappings:
       - type: from_entity
         entity: name
+        conditions:
+        - active_loop: simple_person_form
+          requested_slot: name
   education_level:
     type: text
     influence_conversation: true
     mappings:
     - type: from_entity
       entity: education_level
+      conditions:
+      - active_loop: simple_person_form
+        requested_slot: education_level
   age:
     type: float
     influence_conversation: true
     mappings:
     - type: from_entity
       entity: age
+      conditions:
+      - active_loop: simple_person_form
+        requested_slot: age
 
 responses:
 
@@ -133,6 +142,7 @@ actions:
   - action_time_difference
   - validate_simple_person_form
   - utter_submit
+  - action_ask_education_level
 
 session_config:
   session_expiration_time: 60
