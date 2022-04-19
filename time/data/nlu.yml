@@ -6,6 +6,12 @@ nlu:
     - /start
     - start
 
+- intent: language_speak
+  examples: |
+    - [en](language)
+    - [pt](language)
+    - [de](language)
+
 - intent: insult
   examples: |
     - merda
@@ -65,6 +71,13 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - hallo
+    - Guten morgen
+    - moin moin
+    - servus
+    - guten tag
+    - guten nachmittag
+    - guten abend
 
 - intent: goodbye
   examples: |
@@ -85,6 +98,10 @@ nlu:
     - see you around
     - bye bye
     - see you later
+    - bis später
+    - tschüss
+    - bis morgen
+    - gute nacht
 
 - intent: thanks
   examples: |
@@ -106,6 +123,11 @@ nlu:
     - thanks very much
     - thanks for the information
     - thanks for the help
+    - danke
+    - dankeschön
+    - vielen Dank
+    - danke für deine Hilfe
+    - danke für die Information
 
 - intent: affirm
   examples: |
@@ -119,6 +141,11 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - ja
+    - genau
+    - gute Idee
+    - klar
+    - sicher Ja
 
 - intent: deny
   examples: |
@@ -127,7 +154,6 @@ nlu:
     - jamais
     - eu não acho
     - com certeza não
-    - eu não acho
     - no
     - n
     - never
@@ -135,6 +161,10 @@ nlu:
     - don't like that
     - no way
     - not really
+    - sicherlich nicht
+    - nein
+    - niemals
+    - noch nie
 
 - intent: mood_great
   examples: |
@@ -165,6 +195,12 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - perfekt
+    - wunderbar
+    - toll
+    - ich bin glücklich
+    - mir geht es gut
+    - ich fühle mich gut, danke
 
 - intent: register_person
   examples: |
@@ -173,6 +209,11 @@ nlu:
     - Cadastro
     - registro
     - cadastrar pessoa
+    - Anmeldung
+    - Registrierung 
+    - Personenregistrierung
+    - ich möchte mich registrieren
+    - ich möchte mich anmelden
 
 - intent: functionalities
   examples: |
@@ -195,6 +236,13 @@ nlu:
     - what can I ask you?
     - what is your purpose?
     - help
+    - Hilfe
+    - was kannst du tun?
+    - was können Sie beantworten?
+    - wofür bist du?
+    - was ist Ihre Funktion?
+    - welche Fragen wissen Sie zu beantworten?
+    - was kann ich dich fragen?
 
 - intent: mood_unhappy
   examples: |
@@ -230,6 +278,12 @@ nlu:
     - so sad
     - more or less
     - so so
+    - mir geht es nicht gut
+    - mir geht es nicht so gut
+    - ich bin nicht glücklich
+    - ich bin unglücklich
+    - na ja
+    - schrecklich
 
 - intent: stop
   examples: |
@@ -241,11 +295,19 @@ nlu:
     - pare de me perguntar
     - não quero mais responder
     - esquece esse formulário
+    - desistir de me cadastrar
+    - cancelar cadastro
+    - cancelar formulário
     - stop
     - nevermind
     - please stop
     - i want to stop
     - stop the form
+    - Stopp
+    - Halt
+    - Stoppen Sie das Formular
+    - Registrierung stornieren
+    - ich will nicht mehr antworten
 
 - intent: inquire_time
   examples: |
@@ -263,6 +325,14 @@ nlu:
     - tell me time in [Lisbon](place)?
     - What is the current time in [London](place)?
     - what time is it in [amsterdam](place)?
+    - wie spät ist es?
+    - wie viel Uhr ist es jetzt?
+    - sagen Sie mir, wie spät ist es.
+    - ich möchte die Zeit wissen.
+    - wie spät ist es in [Berlin](place)?
+    - wie viel Uhr ist es jetzt in [London](place)?
+    - sagen Sie mir, wie spät es in [Lisbon](place) ist.
+    - ich möchte wissen, wie spät es in [amsterdam](place) ist.
 
 - lookup: place
   examples: |
@@ -280,6 +350,14 @@ nlu:
         - cairo
         - karlsruhe 
         - berlin
+        - berlim
+        - Bruxelas
+        - Moscou
+        - Londres
+        - Lisboa
+        - Glasgow
+        - Copenhagen
+
 
 - intent: where_i_live
   examples:  |
@@ -298,6 +376,14 @@ nlu:
     - remember that i live in [london](place)
     - i live in [brussels](place)
     - i am in [cairo](place)
+    - Bitte denken Sie daran, dass ich in [Amsterdam](place) wohne.
+    - mein Haus ist in [London](place).
+    - Hinweis: Ich lebe in [Lisbon](place).
+    - mein Wohnsitz ist in [Berlin](place).
+    - Denken Sie daran, dass ich in [London](place) lebe.
+    - Ich wohne in [Brussels](place).
+    - Ich bin in [Cairo](place).
+    - Ich komme aus [berlin](place)
 
 - intent: inquire_time_difference
   examples: |
@@ -314,6 +400,12 @@ nlu:
     - is there a time difference with [Berlin](place)?
     - what is the time difference with [amsterdam](place)?
     - tell me the time difference with [brussels](place)
+    - Zeitunterschied zu [Amsterdam](place).
+    - Wie viele Stunden Unterschied zu [London](place)?
+    - Wie groß ist der Stundenunterschied zu [Brussels](place).
+    - Gibt es einen Stundenunterschied zu [berlin](place)?
+    - Nennen Sie mir den Unterschied in Stunden mit [Cairo](place).
+    - Ich möchte wissen, wie viele Stunden der Unterschied zu [lisbon](place) ist.
 
 - intent: bot_challenge
   examples: |
@@ -328,6 +420,11 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+    - bist du ein Bot?
+    - bist du ein Menschen?
+    - Bot oder Menschen?
+    - Spreche ich mit einem bot?
+    - Spreche ich mit einem Menschen?
 
 - intent: inform
   examples: |
@@ -345,9 +442,49 @@ nlu:
     - [35](age) anos
     - [62](age) anos de idade
     - [12](age)
-    - eu tenho [graduação](education_level)
-    - terminei meu [mestrado](education_level)
-    - meu nível educacional é [ensino técnico](education_level)
-    - finalizei apenas o [ensino fundamental](education_level)
-    - fiz até o [ensino médio](education_level)
-    - tenho [doutorado](education_level)
+    - eu tenho [Ensino Superior](education_level)
+    - terminei meu [Mestrado](education_level)
+    - meu nível educacional é [Ensino Técnico](education_level)
+    - finalizei apenas o [Ensino Fundamental](education_level)
+    - fiz até o [Ensino Médio](education_level)
+    - tenho [Doutorado](education_level)
+    - my name is [Alice](name).
+    - I'm [Julia](name).
+    - I'm [Daniel](name)
+    - my name is [Gabriel](name).
+    - I'm [Olivia](name).
+    - I'm [Lucas](name)
+    - my name is [Nicolas](name).
+    - I'm [Nicole](name).
+    - I'm [Vitoria](name)
+    - I am [16](age) years old
+    - I am [20](age) years old
+    - [35](age) years
+    - [62](age) years old
+    - [12](age)
+    - I have [Higher Education](education_level)
+    - finished my [Master's](education_level)
+    - my educational level is [Technical Education](education_level)
+    - I just finished [Elementary School](education_level)
+    - I made it to [High School](education_level)
+    - I have [Doctorate](education_level)
+    - Mein Name ist [Heike](name).
+    - Ich bin [Volker](name).
+    - Ich bin [Peter](name)
+    - Mein Name ist [Matthias](name).
+    - Ich bin [Peter](name).
+    - Ich bin [Petra](name)
+    - Mein Name ist [Sabine](name).
+    - Ich bin [Angela](name).
+    - Ich bin [Michael](name)
+    - Ich bin [16](age) Jahre alt
+    - Ich bin [20](age) Jahre alt
+    - [35](age) Jahre
+    - [62](age) Jahre alt
+    - [12](age)
+    - Ich habe [Hochschulbildung](education_level)
+    - meinen [Master] abgeschlossen (Education_level)
+    - Mein Bildungsniveau ist [Technische Ausbildung](education_level)
+    - Ich habe gerade die [Grundschule] (education_level) abgeschlossen
+    - Ich habe es bis zur [High School] (education_level) geschafft
+    - Ich habe [Promotion](education_level)

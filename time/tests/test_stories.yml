@@ -13,6 +13,17 @@ stories:
     intent: mood_great
   - action: utter_happy
 
+- story: happy path 1 in portuguese
+  steps:
+  - user: |
+      oi!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      bem
+    intent: mood_great
+  - action: utter_happy
+
 - story: happy path 2
   steps:
   - user: |
@@ -25,6 +36,21 @@ stories:
   - action: utter_happy
   - user: |
       bye-bye!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: happy path 2 in portuguese
+  steps:
+  - user: |
+      olá!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      muito bem!
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      até mais tarde!
     intent: goodbye
   - action: utter_goodbye
 
@@ -44,6 +70,22 @@ stories:
     intent: affirm
   - action: utter_happy
 
+- story: sad path 1 in portuguese
+  steps:
+  - user: |
+      olá
+    intent: greet
+  - action: utter_greet
+  - user: |
+      não muito bem
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      sim
+    intent: affirm
+  - action: utter_happy
+
 - story: sad path 2
   steps:
   - user: |
@@ -57,6 +99,22 @@ stories:
   - action: utter_did_that_help
   - user: |
       not really
+    intent: deny
+  - action: utter_goodbye
+
+- story: sad path 2 in portuguese
+  steps:
+  - user: |
+      olá
+    intent: greet
+  - action: utter_greet
+  - user: |
+      estou me sentindo triste
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      não
     intent: deny
   - action: utter_goodbye
 
@@ -76,10 +134,33 @@ stories:
     intent: deny
   - action: utter_goodbye
 
+- story: sad path 3 in portuguese
+  steps:
+  - user: |
+      oi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      horrível
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      não melhorou
+    intent: deny
+  - action: utter_goodbye
+
 - story: say goodbye
   steps:
   - user: |
       bye-bye!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: say goodbye in portuguese
+  steps:
+  - user: |
+      tchau tchau
     intent: goodbye
   - action: utter_goodbye
 
@@ -89,3 +170,227 @@ stories:
       are you a bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+- story: bot challenge in portuguese
+  steps:
+  - user: |
+      você é um bot?
+    intent: bot_challenge
+  - action: utter_iamabot
+
+- story: insult in portuguese
+  steps:
+  - user: |
+      te odeio
+    intent: insult
+  - action: utter_insult
+
+- story: thank you in portuguese
+  steps:
+  - user: |
+      Muito agradecida
+    intent: thanks
+  - action: utter_youre_welcome
+
+- story: functionalities in portuguese
+  steps:
+  - user: |
+      qq vc faz?
+    intent: functionalities
+  - action: utter_functionalities
+
+- story: tell me the time in portuguese
+  steps:
+  - user: |
+      q horas são?
+    intent: inquire_time
+  - action: action_tell_time
+
+- story: where I live in portuguese
+  steps:
+  - user: |
+      estou em Glasgow
+    intent: where_i_live
+  - action: action_remember_where
+
+- story: time difference in portuguese
+  steps:
+  - user: |
+      qual a diferença entre onde moro e Copenhagen?
+    intent: inquire_time_difference
+  - action: action_time_difference
+
+- story: interactive_story_1 in portuguese
+  steps:
+  - user: |
+      oi!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      bem
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      cadastrar pessoa
+    intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - user: |
+      meu nome é Natalia
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      15 anos de idade
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      Ensino Médio
+    intent: inform
+  - action: simple_person_form
+  - active_loop: null
+  - action: action_submit
+  - user: |
+      tchau!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_2 in Portuguese
+  steps:
+  - user: |
+      olá
+    intent: greet
+  - action: utter_greet
+  - user: |
+      estou muito bem
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      quero me registrar no sistema
+    intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - user: |
+      desisti
+    intent: stop
+  - action: utter_ask_continue
+  - user: |
+      sim
+    intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stop_register
+  - user: |
+      até mais!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_3 in Portuguese
+  steps:
+  - user: |
+      bom dia
+    intent: greet
+  - action: utter_greet
+  - user: |
+      muito bem
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      me cadastrar
+    intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - user: |
+      me chamo Camilo
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      parar cadastro
+    intent: stop
+  - action: utter_ask_continue
+  - user: |
+      sim
+    intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stop_register
+  - user: |
+      inté!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_4 in Portuguese
+  steps:
+  - user: |
+      olar
+    intent: greet
+  - action: utter_greet
+  - user: |
+      ótimo
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      quero cadastrar pessoa
+    intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - user: |
+      Carolina
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      23 anos
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      parar formulário
+    intent: stop
+  - action: utter_ask_continue
+  - user: |
+      sim
+    intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_stop_register
+  - user: |
+      tchau!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_5 in Portuguese
+  steps:
+  - user: |
+      boa noite
+    intent: greet
+  - action: utter_greet
+  - user: |
+      estou bem
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      desejo me cadastrar
+    intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - user: |
+      Vanderlei
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      61 anos
+    intent: inform
+  - action: simple_person_form
+  - user: |
+      cancelar cadastro
+    intent: stop
+  - action: utter_ask_continue
+  - user: |
+      não
+    intent: deny
+  - action: utter_continue_register
+  - action: simple_person_form
+  - active_loop: simple_person_form

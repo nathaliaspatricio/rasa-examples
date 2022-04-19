@@ -5,7 +5,12 @@ rules:
 - rule: start bot in Telegram
   steps:
   - intent: start
-  - action: utter_start
+  - action: action_start
+
+- rule: choose language
+  steps:
+  - intent: language_speak
+  - action: action_choose_language
 
 - rule: Say goodbye anytime the user says goodbye
   steps:

@@ -92,38 +92,12 @@ stories:
     - requested_slot: name
   - intent: stop
   - action: utter_ask_continue
-  - intent: stop
-  - action: action_deactivate_loop
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: utter_stop_register
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: register_person
-  - action: utter_start_register
-  - action: simple_person_form
-  - active_loop: simple_person_form
-  - slot_was_set:
-    - requested_slot: name
-  - slot_was_set:
-    - name: ana
-  - slot_was_set:
-    - name: ana
-  - slot_was_set:
-    - requested_slot: age
-  - intent: stop
-  - action: utter_ask_continue
   - intent: affirm
   - action: action_deactivate_loop
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
+  - action: utter_stop_register
   - intent: goodbye
   - action: utter_goodbye
 
@@ -139,6 +113,28 @@ stories:
     - requested_slot: name
   - slot_was_set:
     - name: ana
+  - slot_was_set:
+    - requested_slot: age
+  - intent: stop
+  - action: utter_ask_continue
+  - intent: affirm
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interactive_story_4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: register_person
+  - action: utter_start_register
+  - action: simple_person_form
+  - active_loop: simple_person_form
+  - slot_was_set:
+    - requested_slot: name
   - slot_was_set:
     - name: ana
   - slot_was_set:
@@ -157,7 +153,7 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: interactive_story_4
+- story: interactive_story_5
   steps:
   - intent: greet
   - action: utter_greet

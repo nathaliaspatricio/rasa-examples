@@ -18,6 +18,7 @@ intents:
   - insult
   - stop
   - register_person
+  - language_speak
 
 forms:
   simple_person_form:
@@ -32,20 +33,30 @@ entities:
   - name
   - age
   - education_level
+  - language
 
 slots:
+  language:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: language
   place:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: place
+        intent: inquire_time, where_i_live, inquire_time_difference
+        not_intent: mood_great
   location:
     type: text
     influence_conversation: true
     mappings:
       - type: from_entity
         entity: location
+        intent: inquire_time, where_i_live, inquire_time_difference
   name:
     type: text
     influence_conversation: true
@@ -66,6 +77,8 @@ slots:
         requested_slot: education_level
   age:
     type: float
+    min_value:  0.0
+    max_value:  150.0
     influence_conversation: true
     mappings:
     - type: from_entity
@@ -77,64 +90,291 @@ slots:
 responses:
 
   utter_start:
-  - text: "Oi, sou o Stephen Hawking. Como posso te ajudar?"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Oi, sou o Stephen Hawking. Como posso te ajudar?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Hi, I'm Stephen Hawking. How can I help you?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Hallo, Ich bin Stephen Hawking. Womit kann ich Ihnen behilflich sein?"
+    - text: "Hi, I'm Stephen Hawking. How can I help you?"
   utter_greet:
-  - text: Oi! Como você está?
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Oi! Como você está?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Hi! How are you?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Hallo! Wie geht es Ihnen?"
+    - text: Hi! How are you?
   utter_cheer_up:
-  - text: "Aqui está algo para te animar:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Aqui está algo para te animar:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Hier ist etwas zur Aufmunterung:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Te ajudou?"
-  - text: "Está se sentindo melhor?"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Está se sentindo melhor agora?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Are you feeling better now?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Geht es dir inzwischen besser?"
+    - text: "Do you feel better now?"
 
   utter_happy:
-  - text: "Ótimo, continue assim!"
-  - text: "Que bom!"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Que bom, espero que continue assim!"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Great, carry on!"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Super, weiter so!"
+    - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Tchau!"
-  - text: "Até uma próxima!"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Até uma próxima!"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Bye!"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Tschüss!"
+    - text: "Bye!"
 
   utter_youre_welcome:
-  - text: "De nada! É um prazer poder ajudar."
-  - text: "De nada! Se precisar de algo mais avise!"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "De nada! É um prazer poder ajudar."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "You are welcome!"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Bitte!"
+    - text: "You are welcome!"
 
   utter_insult:
-  - text: "Eu sou um bot, mas não precisa me insultar."
-  - text: "Você não está sendo educado comigo."
-  - text: "Você precisa ser mais educado."
-  - text: "Não é correto insultar os outros."
-  - text: "Não te fiz nada. Não precisa me insultar"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Eu sou um bot, mas não precisa me insultar."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Don't insult me!"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Beleidige mich nicht!"
+      #text: "Você não está sendo educado comigo."
+      #text: "Você precisa ser mais educado."
+      #text: "Não é correto insultar os outros."
+      #text: "Não te fiz nada. Não precisa me insultar"
+    - text: "Don't insult me!"
 
   utter_iamabot:
-  - text: "Eu sou um bot, desenvolvido pela Rasa."
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Eu sou um bot, desenvolvido pela Rasa."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "I am a bot, developed by Rasa."
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Ich bin ein bot, entwilckelt von Rasa."
+    - text: "I am bot, developed by Rasa."
 
   utter_functionalities:
-  - text: "Eu tenho duas funções: \n 1) Eu consigo te responder o horário em diferentes lugares do planeta e também te dizer a diferença em horas para onde você mora. \n 2) Posso fazer seu cadastro no nosso sistema."
-  - text: "Eu tenho duas funções: \n 1) Eu posso te dizer o horário em diferentes lugares do mundo e também te falar a diferença em horas para a cidade que você mora. \n 2) Posso te registrar no nosso sistema."
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Eu tenho duas funções: \n 1) Eu consigo te responder o horário em diferentes lugares do planeta e também te dizer a diferença em horas para onde você mora. \n 2) Posso fazer seu cadastro no nosso sistema."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "I have two functions: \n 1) I can answer you the hour in differente places around the world and also the difference in hours to where you live. \n 2) I can make your registration in our system."
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Ich habe zwei Funktionen: \n 1) Ich kann Ihnen die Stunde an verschiedenen Orten auf der ganzen Welt und auch die Differenz der Stunden zu Ihrem Wohnort beantworten. \n 2) Ich kann Ihre Registrierung in unserem System vornehmen."
+    - text: "I have two functions: \n 1) I can answer you the hour in differente places around the world and also the difference in hours to where you live. \n 2) I can make your registration in our system."
 
-  utter_submit:
-  - text: "Eu vou submeter o seu cadastro agora!"
-  utter_person_slots:
-  - text: "Seu cadastro:\n
-            - Nome: {name}\n
-            - Idade: {age} anos\n
-            - Nível educacional: {education_level}"  
+
   utter_ask_continue:
-  - text: Você tem certeza que deseja parar o preenchimento do formulário?
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Você tem certeza que deseja parar o preenchimento do formulário?"
+    - text: "Are you sure about stopping the form?"
   utter_start_register:
-  - text: "Ok, então vamos começar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Ok, então vamos começar o seu cadastro."
+    - text: "Ok, let's start your registration."
   utter_stop_register:
-  - text: "Ok, então vou parar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Ok, então vou parar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Ok, I will stop your registration."
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Okay, ich werde Ihre Registrierung stoppen."
+    - text: "Ok, I will stop your registration."
   utter_continue_register:
-  - text: "Ok, então vamos continuar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Ok, então vamos continuar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Ok, let's continue your registration."
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Okay, lass uns mit Ihrer Registrierung fortfahren."
+    - text: "Ok, let's continue your registration."
   utter_ask_name:
-  - text: "Qual é o seu nome?"
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Qual é o seu nome?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "What is your name?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Wie heißen Sie?"
+    - text: "What is your name?"
   utter_ask_age:
-  - text: Qual a sua idade?
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Qual é sua idade?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "How old are you?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Wie alt sind Sie?"
+    - text: "How old are you?"
   utter_ask_education_level:
-  - text: Qual é o seu nível educacional?
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Qual é o seu nível educacional?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "What is your educational level?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Was ist Ihr Bildungsniveau?"
+    - text: "What is your educational level?"
 
 actions:
   - action_remember_where
@@ -143,6 +383,8 @@ actions:
   - validate_simple_person_form
   - action_submit
   - action_ask_education_level
+  - action_start
+  - action_choose_language
 
 session_config:
   session_expiration_time: 60
