@@ -122,7 +122,7 @@ responses:
           name: language
           value: de
       text: "Hallo! Wie geht es Ihnen?"
-    - text: Hi! How are you?
+    - text: "Hi! How are you?"
   utter_cheer_up:
     - condition:
         - type: slot
@@ -282,6 +282,16 @@ responses:
           name: language
           value: pt
       text: "Você tem certeza que deseja parar o preenchimento do formulário?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Are you sure that you want to stop the form?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Möchten Sie das Ausfüllen des Formulars wirklich beenden?"
     - text: "Are you sure about stopping the form?"
   utter_start_register:
     - condition:
@@ -289,6 +299,16 @@ responses:
           name: language
           value: pt
       text: "Ok, então vamos começar o seu cadastro."
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "Ok, let's start your registration."
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Ok, beginnen wir also mit der Registrierung."
     - text: "Ok, let's start your registration."
   utter_stop_register:
     - condition:

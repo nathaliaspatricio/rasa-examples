@@ -9,12 +9,12 @@ def DbConnection():
     )
     return mydb
 
-def PersonInsert(name, age, education_level):
+def PersonInsert(name, age, education_level, language):
     mydb = DbConnection()
 
     mycursor = mydb.cursor()
 
-    sql = 'INSERT INTO person (name, age, education_level) VALUES ("' + name + '", "' + str(age) + '", "' + education_level + '");'
+    sql = 'INSERT INTO person (name, age, education_level, language) VALUES ("' + name + '", "' + str(age) + '", "' + education_level + '", "' + language + '");'
 
     mycursor.execute(sql)
 
@@ -48,4 +48,4 @@ def CitySelect(city):
 
 
 if __name__=="__main__":
-    DataUpdate("Nathalia", 36, "Mestrado")    
+    DataUpdate("Nathalia", 36, "Mestrado", "pt")    

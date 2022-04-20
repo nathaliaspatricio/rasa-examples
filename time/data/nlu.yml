@@ -11,6 +11,14 @@ nlu:
     - [en](language)
     - [pt](language)
     - [de](language)
+    - [português](language)
+    - [english](language)
+    - [deutsch](language)
+    - [portuguese](language)
+    - [portugiesich](language)
+    - [englisch](language)
+    - [german](language)
+    - [alemão](language)
 
 - intent: insult
   examples: |
@@ -182,6 +190,7 @@ nlu:
     - estou feliz
     - estou tão animado
     - perfect
+    - fine
     - great
     - amazing
     - feeling like a king
@@ -334,30 +343,6 @@ nlu:
     - sagen Sie mir, wie spät es in [Lisbon](place) ist.
     - ich möchte wissen, wie spät es in [amsterdam](place) ist.
 
-- lookup: place
-  examples: |
-        - brussels
-        - zagreb
-        - brasilia
-        - paris
-        - washington
-        - moscow
-        - buenos aires
-        - london
-        - lisbon
-        - madrid
-        - amsterdam
-        - cairo
-        - karlsruhe 
-        - berlin
-        - berlim
-        - Bruxelas
-        - Moscou
-        - Londres
-        - Lisboa
-        - Glasgow
-        - Copenhagen
-
 
 - intent: where_i_live
   examples:  |
@@ -462,12 +447,12 @@ nlu:
     - [35](age) years
     - [62](age) years old
     - [12](age)
-    - I have [Higher Education](education_level)
-    - finished my [Master's](education_level)
-    - my educational level is [Technical Education](education_level)
-    - I just finished [Elementary School](education_level)
-    - I made it to [High School](education_level)
-    - I have [Doctorate](education_level)
+    - I have [Elementary Education](education_level)
+    - finished my [Master](education_level)
+    - my educational level is [Secondary Education](education_level)
+    - I just finished [Bachelor](education_level)
+    - I made it to [Technical or Vocational Education](education_level)
+    - I have [PhD](education_level)
     - Mein Name ist [Heike](name).
     - Ich bin [Volker](name).
     - Ich bin [Peter](name)
@@ -482,9 +467,12 @@ nlu:
     - [35](age) Jahre
     - [62](age) Jahre alt
     - [12](age)
-    - Ich habe [Hochschulbildung](education_level)
+    - Ich habe [Bachelor](education_level)
     - meinen [Master] abgeschlossen (Education_level)
-    - Mein Bildungsniveau ist [Technische Ausbildung](education_level)
+    - Mein Bildungsniveau ist [Gymnasium](education_level)
     - Ich habe gerade die [Grundschule] (education_level) abgeschlossen
-    - Ich habe es bis zur [High School] (education_level) geschafft
+    - Ich habe es bis zur [Gesamtschule] (education_level) geschafft
     - Ich habe [Promotion](education_level)
+    - Mein Bildungsniveau ist [Hauptschule](education_level)
+    - Ich habe es bis zur [Realschule](education_level) geschafft
+    - Ich habe [Berufsschule oder Fachoberschule](education_level)

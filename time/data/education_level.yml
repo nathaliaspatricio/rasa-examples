@@ -1,0 +1,27 @@
+version: "3.0"
+
+nlu:
+- lookup: educational_level
+  examples: |
+        - Ensino Fundamental
+        - Ensino Médio
+        - Ensino Técnico
+        - Ensino Superior
+        - Especialização
+        - Mestrado
+        - Doutorado
+        - Elementary Education
+        - Secondary Education
+        - Technical or Vocational Education
+        - Bachelor
+        - Master
+        - PhD
+        - Grundschule
+        - Hauptschule
+        - Realschule
+        - Gesamtschule
+        - Gymnasium
+        - Berufsschule oder Fachoberschule
+        - Bachelor
+        - Master
+        - Promotion

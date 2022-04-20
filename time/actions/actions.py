@@ -21,7 +21,7 @@ from db_connectivity import PersonInsert, CitySelect
 city_db = {
     'Brussels': 'Europe/Brussels',
     'Zagreb': 'Europe/Zagreb',
-    'Brasilia': 'America/Fortaleza',
+    'Fortaleza': 'America/Fortaleza',
     'Paris': 'Europe/Paris',
     'Washington': 'US/Pacific',
     'Moscow': 'Europe/Moscow',
@@ -31,7 +31,6 @@ city_db = {
     'Madrid': 'Europe/Madrid',
     'Amsterdam': 'Europe/Amsterdam',
     'Cairo': 'Africa/Cairo',
-    'Karlsruhe': 'Europe/Berlin',
     'Berlin': 'Europe/Berlin',
 }
 
@@ -41,7 +40,7 @@ ALLOWED_LANGUAGES = {
     "de": "Ich will auf Deutsch sprechen",
 }
 
-ALLOWED_EDUCATION_LEVELS = [
+ALLOWED_EDUCATION_LEVELS_PORT = [
     "Ensino Fundamental",
     "Ensino Médio",
     "Ensino Técnico",
@@ -49,6 +48,27 @@ ALLOWED_EDUCATION_LEVELS = [
     "Especialização",
     "Mestrado",
     "Doutorado",
+]
+
+ALLOWED_EDUCATION_LEVELS_ENG = [
+    "Elementary Education",
+    "Secondary Education",
+    "Technical or Vocational Education",
+    "Bachelor",
+    "Master",
+    "PhD",
+]
+
+ALLOWED_EDUCATION_LEVELS_DEUT = [
+    "Grundschule",
+    "Hauptschule",
+    "Realschule",
+    "Gesamtschule",
+    "Gymnasium",
+    "Berufsschule oder Fachoberschule",
+    "Bachelor",
+    "Master",
+    "Promotion",
 ]
 
 class ActionStart(Action):
@@ -103,17 +123,17 @@ class ActionSubmit(Action):
         education_level = tracker.get_slot("education_level")
         current_language = tracker.get_slot("language")
 
-        id = PersonInsert(name, age, education_level)
+        id = PersonInsert(name, age, education_level, current_language)
 
         if current_language == 'pt':
             dispatcher.utter_message(text=f"Eu vou submeter o seu cadastro agora!") 
-            dispatcher.utter_message(text=f"Seu cadastro:\n - ID: {id}\n - Nome: {name} \n - Idade: {age} anos\n - Nível educacional: {education_level}")  
+            dispatcher.utter_message(text=f"Seu cadastro:\n - ID: {id}\n - Nome: {name} \n - Idade: {age} anos\n - Nível educacional: {education_level}\n - Idioma: {current_language}")  
         elif current_language == 'de':
             dispatcher.utter_message(text=f"Ich werde Ihre Anmeldung jetzt absenden!")
-            dispatcher.utter_message(text=f"Ihre Anmeldung:\n - ID: {id}\n - Vorname: {name} \n - Alter: {age} Jahren\n - Bildungsniveau: {education_level}")  
+            dispatcher.utter_message(text=f"Ihre Anmeldung:\n - ID: {id}\n - Vorname: {name} \n - Alter: {age} Jahren\n - Bildungsniveau: {education_level}\n - Sprache: {current_language}")  
         elif current_language == 'en':
             dispatcher.utter_message(text=f"I will submit your registration now!")
-            dispatcher.utter_message(text=f"Your registration:\n - ID: {id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}")  
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {current_language}")  
 
         return []
 
@@ -130,17 +150,17 @@ class AskForEducationLevelAction(Action):
         if current_language == 'pt':
             dispatcher.utter_message(
                 text=f"Qual é o seu nível educacional?",
-                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS],
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_PORT],
             )
         elif current_language == 'de':
             dispatcher.utter_message(
                 text=f"Was ist Ihr Bildungsniveau?",
-                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS],
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_DEUT],
             )
         elif current_language == 'en':
             dispatcher.utter_message(
                 text=f"What is your educational level?",
-                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS],
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
             )
 
         return []
@@ -203,9 +223,28 @@ class ValidateSimplePersonForm(FormValidationAction):
 
         current_language = tracker.get_slot("language")
 
-        if slot_value not in ALLOWED_EDUCATION_LEVELS:
-            dispatcher.utter_message(text=f"Eu não reconheço esse nível educacional. Escolha entre: {', '.join(ALLOWED_EDUCATION_LEVELS)}.")
+        if current_language == "pt" and slot_value not in ALLOWED_EDUCATION_LEVELS_PORT:
+            dispatcher.utter_message(text=f"Eu não reconheço esse nível educacional.")
+            dispatcher.utter_message(
+                text=f"Escolha um dos níveis abaixo:",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_PORT],
+            )
             return {"education_level": None}
+        if current_language == "en" and slot_value not in ALLOWED_EDUCATION_LEVELS_ENG:
+            dispatcher.utter_message(text=f"I don't recognise this educational level.")
+            dispatcher.utter_message(
+                text=f"Choose one of the following:",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
+            )
+            return {"education_level": None}
+        if current_language == "de" and slot_value not in ALLOWED_EDUCATION_LEVELS_DEUT:
+            dispatcher.utter_message(text=f"Ich erkenne dieses Bildungsniveau nicht an.")
+            dispatcher.utter_message(
+                text=f"Wähle eines der Folgenden:",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_DEUT],
+            )
+            return {"education_level": None}
+
         if current_language == 'pt':
             dispatcher.utter_message(text=f"OK! Você tem o seguinte nível educacional: {slot_value}.")
         if current_language == 'de':
@@ -383,7 +422,8 @@ class ActionTimeDifference(Action):
 
             return []  
 
-        tz_string = city_db.get(timezone_to.capitalize(), None)
+        #tz_string = city_db.get(timezone_to.capitalize(), None)
+        tz_string = CitySelect(timezone_to)
 
         if not tz_string:
             if current_language == 'pt':
@@ -399,8 +439,11 @@ class ActionTimeDifference(Action):
             )     
             return []
         
-        t1 = arrow.utcnow().to(city_db[timezone_to])
-        t2 = arrow.utcnow().to(city_db[timezone_in])     
+        t1 = arrow.utcnow().to(CitySelect(timezone_to))
+        t2 = arrow.utcnow().to(CitySelect(timezone_in)) 
+
+        #t1 = arrow.utcnow().to(city_db[timezone_to])
+        #t2 = arrow.utcnow().to(city_db[timezone_in])    
 
         max_t = max(t1, t2) 
         min_t = min(t1, t2)      
