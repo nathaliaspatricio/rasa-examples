@@ -29,6 +29,41 @@ def PersonInsert(name, age, education_level, language):
     print("record inserted: " + str(row[0]))
     return row[0]
 
+def PersonSelect(person_id):
+    mydb = DbConnection()
+
+    mycursor = mydb.cursor(dictionary=True)
+
+    sql = 'SELECT * FROM person WHERE person_id = ' + person_id + ';'
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+    print(result)
+    
+    mydb.close()
+    
+    itens = []
+    print("record selected: ")
+    print(result['name'])
+
+    return result  
+
+def PersonDelete(id):
+    mydb = DbConnection()
+
+    mycursor = mydb.cursor()
+
+    sql = 'DELETE FROM person WHERE person_id = ' + id + ';'
+    print(sql)
+
+    mycursor.execute(sql)
+
+    mydb.commit()
+
+    print(mycursor.rowcount, "record(s) deleted")
+    return []  
+
 
 def CitySelect(city):
     mydb = DbConnection()

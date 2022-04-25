@@ -218,11 +218,55 @@ nlu:
     - Cadastro
     - registro
     - cadastrar pessoa
+    - register myself
+    - registration
+    - person registration
+    - i want to register myself
+    - i want to register a person
+    - i want to sign up
+    - subscribe
+    - person suscription
     - Anmeldung
     - Registrierung 
     - Personenregistrierung
     - ich möchte mich registrieren
     - ich möchte mich anmelden
+
+- intent: select_person
+  examples: |
+    - quero consultar meu cadastro
+    - quero ver meus dados
+    - quero consultar minhas informações
+    - Consulta
+    - Ver conta
+    - I want to check my registration
+    - I want to see my data
+    - Check my information
+    - View account
+    - Ich möchte meine Anmeldung überprüfen
+    - Ich möchte meine Daten sehen
+    - Anfrage
+    - Konto anzeigen
+
+- intent: delete_person
+  examples: |
+    - quero deletar meu cadastro
+    - quero deletar meus dados
+    - quero me descadastrar
+    - Apagar Cadastro
+    - Deletar registro
+    - descadastrar pessoa
+    - unsubscribe
+    - i want to delete my account
+    - i want to delete my registration
+    - i want to delete my data
+    - person unsubscribe
+    - delete myself
+    - Abmeldung
+    - Löschen 
+    - Personendatensatzlöschen
+    - ich möchte mich löschen
+    - ich möchte mich abmelden
 
 - intent: functionalities
   examples: |
@@ -410,6 +454,18 @@ nlu:
     - Bot oder Menschen?
     - Spreche ich mit einem bot?
     - Spreche ich mit einem Menschen?
+
+- intent: inform_id
+  examples: |
+    - meu ID é [56](person_id).
+    - meu registro é [23](person_id).
+    - o número da minha conta é [65](person_id).
+    - my ID is [22](person_id).
+    - my registration number is [101](person_id).
+    - the number of my account is [78](person_id).
+    - meine ID ist [89](person_id).
+    - mein Datensatz ist [35](person_id).
+    - meine Kontonummer ist [12](person_id).
 
 - intent: inform
   examples: |

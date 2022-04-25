@@ -16,7 +16,7 @@ from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
-from db_connectivity import PersonInsert, CitySelect
+from db_connectivity import PersonInsert, PersonSelect, CitySelect, PersonDelete
 
 city_db = {
     'Brussels': 'Europe/Brussels',
@@ -70,6 +70,70 @@ ALLOWED_EDUCATION_LEVELS_DEUT = [
     "Master",
     "Promotion",
 ]
+
+class DeletePersonAction(Action):
+    def name(self) -> Text:
+        return "action_delete_person"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+
+        current_language = tracker.get_slot("language")
+        person_id = tracker.get_slot("person_id")
+
+        person = PersonSelect(person_id)
+        name = person['name']
+        age = person['age']
+        education_level = person['education_level']
+        language = person['language']
+
+        if current_language == 'pt':
+            dispatcher.utter_message(text=f"Encontrei seu cadastro.") 
+            dispatcher.utter_message(text=f"Seu cadastro:\n - ID: {person_id}\n - Nome: {name} \n - Idade: {age} anos\n - Nível educacional: {education_level}\n - Idioma: {language}")  
+            PersonDelete(person_id)
+            dispatcher.utter_message(text=f"Eu deletei seu cadastro.")
+        elif current_language == 'de':
+            dispatcher.utter_message(text=f"Ich habe Ihre Anmeldung gefunden")
+            dispatcher.utter_message(text=f"Ihre Anmeldung:\n - ID: {person_id}\n - Vorname: {name} \n - Alter: {age} Jahren\n - Bildungsniveau: {education_level}\n - Sprache: {language}")  
+            PersonDelete(person_id)
+            dispatcher.utter_message(text=f"Ich habe Ihre Registrierung gelöscht.")
+        elif current_language == 'en':
+            dispatcher.utter_message(text=f"I have found your registration.")
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
+            PersonDelete(person_id)
+            dispatcher.utter_message(text=f"I deleted your registration.")
+
+        return []
+
+class SelectPersonAction(Action):
+    def name(self) -> Text:
+        return "action_select_person"
+
+    def run(
+        self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+
+        current_language = tracker.get_slot("language")
+        person_id = tracker.get_slot("person_id")
+
+        person = PersonSelect(person_id)
+        name = person['name']
+        age = person['age']
+        education_level = person['education_level']
+        language = person['language']
+
+        if current_language == 'pt':
+            dispatcher.utter_message(text=f"Encontrei seu cadastro.") 
+            dispatcher.utter_message(text=f"Seu cadastro:\n - ID: {person_id}\n - Nome: {name} \n - Idade: {age} anos\n - Nível educacional: {education_level}\n - Idioma: {language}")  
+        elif current_language == 'de':
+            dispatcher.utter_message(text=f"Ich habe Ihre Anmeldung gefunden")
+            dispatcher.utter_message(text=f"Ihre Anmeldung:\n - ID: {person_id}\n - Vorname: {name} \n - Alter: {age} Jahren\n - Bildungsniveau: {education_level}\n - Sprache: {language}")  
+        elif current_language == 'en':
+            dispatcher.utter_message(text=f"I have found your registration.")
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
+
+        return []
 
 class ActionStart(Action):
 

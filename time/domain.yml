@@ -19,6 +19,9 @@ intents:
   - stop
   - register_person
   - language_speak
+  - delete_person
+  - select_person
+  - inform_id
 
 forms:
   simple_person_form:
@@ -34,6 +37,7 @@ entities:
   - age
   - education_level
   - language
+  - person_id
 
 slots:
   language:
@@ -86,6 +90,14 @@ slots:
       conditions:
       - active_loop: simple_person_form
         requested_slot: age
+  person_id:
+    type: float
+    min_value:  0.0
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: person_id
+      intent: inform_id
 
 responses:
 
@@ -395,8 +407,44 @@ responses:
           value: de
       text: "Was ist Ihr Bildungsniveau?"
     - text: "What is your educational level?"
+  utter_select_person:
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Qual é o seu número ID?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "What is your ID number?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Was ist Ihre ID-Nummer?"
+    - text: "What is your ID number?"
+  utter_delete_person:
+    - condition:
+        - type: slot
+          name: language
+          value: pt
+      text: "Qual é o seu número ID?"
+    - condition:
+        - type: slot
+          name: language
+          value: en
+      text: "What is your ID number?"
+    - condition:
+        - type: slot
+          name: language
+          value: de
+      text: "Was ist Ihre ID-Nummer?"
+    - text: "What is your ID number?"
 
 actions:
+  - action_select_person
+  - action_delete_person
   - action_remember_where
   - action_tell_time
   - action_time_difference

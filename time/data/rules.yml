@@ -52,6 +52,7 @@ rules:
   - intent: inquire_time_difference
   - action: action_time_difference
 
+
 - rule: Activate Person Form
   steps:
   - intent: register_person

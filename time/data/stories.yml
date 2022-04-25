@@ -58,6 +58,33 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
+- story: User consults their information
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: select_person
+  - action: utter_select_person
+  - intent: inform_id
+  - intent: inform_id
+    entities:
+    - person_id: '41'
+  - slot_was_set:
+    - person_id: '41'
+  - action: action_select_person
+
+- story: User wants to delete their information
+  steps:
+  - intent: delete_person
+  - action: utter_delete_person
+  - intent: inform_id
+    entities:
+    - person_id: '18'
+  - slot_was_set:
+    - person_id: '18'
+  - action: action_delete_person
+
 - story: User interrupts the form and doesn't want to continue
   steps:
   - intent: greet

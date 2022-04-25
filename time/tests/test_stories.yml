@@ -209,14 +209,14 @@ stories:
 - story: where I live in portuguese
   steps:
   - user: |
-      estou em Glasgow
+      moro em Glasgow
     intent: where_i_live
   - action: action_remember_where
 
 - story: time difference in portuguese
   steps:
   - user: |
-      qual a diferença entre onde moro e Copenhagen?
+      qual a diferença horária para Copenhagen?
     intent: inquire_time_difference
   - action: action_time_difference
 
