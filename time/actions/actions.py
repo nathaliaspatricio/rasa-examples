@@ -103,6 +103,12 @@ class DeletePersonAction(Action):
             dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
             PersonDelete(person_id)
             dispatcher.utter_message(text=f"I deleted your registration.")
+        else:
+            dispatcher.utter_message(text=f"I have found your registration.")
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
+            PersonDelete(person_id)
+            dispatcher.utter_message(text=f"I deleted your registration.")
+
 
         return []
 
@@ -130,6 +136,9 @@ class SelectPersonAction(Action):
             dispatcher.utter_message(text=f"Ich habe Ihre Anmeldung gefunden")
             dispatcher.utter_message(text=f"Ihre Anmeldung:\n - ID: {person_id}\n - Vorname: {name} \n - Alter: {age} Jahren\n - Bildungsniveau: {education_level}\n - Sprache: {language}")  
         elif current_language == 'en':
+            dispatcher.utter_message(text=f"I have found your registration.")
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
+        else:
             dispatcher.utter_message(text=f"I have found your registration.")
             dispatcher.utter_message(text=f"Your registration:\n - ID: {person_id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {language}") 
 
@@ -198,6 +207,9 @@ class ActionSubmit(Action):
         elif current_language == 'en':
             dispatcher.utter_message(text=f"I will submit your registration now!")
             dispatcher.utter_message(text=f"Your registration:\n - ID: {id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {current_language}")  
+        else:
+            dispatcher.utter_message(text=f"I will submit your registration now!")
+            dispatcher.utter_message(text=f"Your registration:\n - ID: {id}\n - Name: {name} \n - Age: {age} years\n - Educational Level: {education_level}\n - Language: {current_language}") 
 
         return []
 
@@ -222,6 +234,11 @@ class AskForEducationLevelAction(Action):
                 buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_DEUT],
             )
         elif current_language == 'en':
+            dispatcher.utter_message(
+                text=f"What is your educational level?",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
+            )
+        else:
             dispatcher.utter_message(
                 text=f"What is your educational level?",
                 buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
@@ -273,6 +290,8 @@ class ValidateSimplePersonForm(FormValidationAction):
             dispatcher.utter_message(text=f"OK! Sie sind {slot_value} Jahre alt.")
         elif current_language == 'en':
             dispatcher.utter_message(text=f"OK! You are {slot_value} years old.")
+        else:
+            dispatcher.utter_message(text=f"OK! You are {slot_value} years old.")
 
         return {"age": slot_value}
 
@@ -294,26 +313,34 @@ class ValidateSimplePersonForm(FormValidationAction):
                 buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_PORT],
             )
             return {"education_level": None}
-        if current_language == "en" and slot_value not in ALLOWED_EDUCATION_LEVELS_ENG:
+        elif current_language == "en" and slot_value not in ALLOWED_EDUCATION_LEVELS_ENG:
             dispatcher.utter_message(text=f"I don't recognise this educational level.")
             dispatcher.utter_message(
                 text=f"Choose one of the following:",
                 buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
             )
             return {"education_level": None}
-        if current_language == "de" and slot_value not in ALLOWED_EDUCATION_LEVELS_DEUT:
+        elif current_language == "de" and slot_value not in ALLOWED_EDUCATION_LEVELS_DEUT:
             dispatcher.utter_message(text=f"Ich erkenne dieses Bildungsniveau nicht an.")
             dispatcher.utter_message(
                 text=f"Wähle eines der Folgenden:",
                 buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_DEUT],
             )
+        elif current_language == None and slot_value not in ALLOWED_EDUCATION_LEVELS_DEUT:
+            dispatcher.utter_message(text=f"I don't recognise this educational level.")
+            dispatcher.utter_message(
+                text=f"Choose one of the following:",
+                buttons=[{"title": p, "payload": p} for p in ALLOWED_EDUCATION_LEVELS_ENG],
+            )
             return {"education_level": None}
 
         if current_language == 'pt':
             dispatcher.utter_message(text=f"OK! Você tem o seguinte nível educacional: {slot_value}.")
-        if current_language == 'de':
+        elif current_language == 'de':
             dispatcher.utter_message(text=f"OK! Sie haben folgendes Bildingsniveau  : {slot_value}.")
-        if current_language == 'en':
+        elif current_language == 'en':
+            dispatcher.utter_message(text=f"OK! You have the following educational level: {slot_value}.")
+        else:
             dispatcher.utter_message(text=f"OK! You have the following educational level: {slot_value}.")
 
         return {"education_level": slot_value}
@@ -338,6 +365,8 @@ class ActionRememberWhere(Action):
                 msg = f"I didn't understand where you live. Choose one of the available cities."
             elif current_language == 'de':
                 msg = f"Ich habe nicht verstanden, wo Sie leben. Wählen Sie eine der verfügbaren Städte aus."
+            else:
+                msg = f"I didn't understand where you live. Choose one of the available cities."
             dispatcher.utter_message(
                 text=msg,
                 buttons=[{"title": p, "payload": p} for p in city_db],
@@ -354,6 +383,8 @@ class ActionRememberWhere(Action):
                 msg = f"I didn't recognize {current_place}. Choose one of the available cities."
             elif current_language == 'de':
                 msg = f"Ich habe {current_place} nicht wiedererkannt. Wählen Sie eine der verfügbaren Städte aus."
+            else:
+                msg = f"I didn't recognize {current_place}. Choose one of the available cities."
             dispatcher.utter_message(
                 text=msg,
                 buttons=[{"title": p, "payload": p} for p in city_db],
@@ -367,6 +398,8 @@ class ActionRememberWhere(Action):
             msg = f"Ok. I will remember that you live in {current_place}."
         elif current_language == 'de':
             msg = f"Ok. Ich werde mich daran erinnern, dass Sie in {current_place} leben."
+        else:
+            msg = f"Ok. I will remember that you live in {current_place}."
     
         dispatcher.utter_message(text=msg)
 
@@ -377,6 +410,8 @@ class ActionRememberWhere(Action):
             msg = f"It is {utc.to(tz_string).format('HH:mm')} in {current_place} now."
         elif current_language == 'de':
             msg = f"Es ist jetzt {utc.to(tz_string).format('HH:mm')} in {current_place}."
+        else:
+            msg = f"It is {utc.to(tz_string).format('HH:mm')} in {current_place} now."
 
         dispatcher.utter_message(text=msg)
 
@@ -401,10 +436,12 @@ class ActionTellTime(Action):
 
             if current_language == 'pt':
                 msg = f"É {utc.format('HH:mm')} utc agora. Você também pode me dar uma localização."
-            elif current_language == 'en':
-                msg = f"It is {utc.format('HH:mm')} utc now. You can give me a place."
             elif current_language == 'de':
                 msg = f"Es ist jetzt {utc.format('HH:mm')} utc. Sie können mir auch einen Standort nennen."
+            elif current_language == 'en':
+                msg = f"It is {utc.format('HH:mm')} utc now. You can give me a place."
+            else:
+                msg = f"It is {utc.format('HH:mm')} utc now. You can give me a place."
 
             dispatcher.utter_message(
                 text=msg,
@@ -422,6 +459,8 @@ class ActionTellTime(Action):
                 msg = f"I didn't recognize {current_place}. Choose one of the available cities."
             elif current_language == 'de':
                 msg = f"Ich habe {current_place} nicht wiedererkannt. Wählen Sie eine der verfügbaren Städte aus."
+            else:
+                msg = f"I didn't recognize {current_place}. Choose one of the available cities."
 
             dispatcher.utter_message(
                 text=msg,
@@ -435,8 +474,9 @@ class ActionTellTime(Action):
             msg = f"It is {utc.to(tz_string).format('HH:mm')} in {current_place} now."
         elif current_language == 'de':
             msg = f"Es ist jetzt {utc.to(tz_string).format('HH:mm')} in {current_place}."
+        else:
+            msg = f"It is {utc.to(tz_string).format('HH:mm')} in {current_place} now."
 
-        #msg = f"É {utc.to(city_db[current_place]).format('HH:mm')} em {current_place} agora."
         dispatcher.utter_message(text=msg)
 
         return []
@@ -462,6 +502,8 @@ class ActionTimeDifference(Action):
                 msg = "To calculate the difference in hours, I need to know where you live."
             elif current_language == 'de':
                 msg = "Um den Studenunterschied zu berechnen, muss ich wissen, wo Sie wohnen."
+            else:
+                msg = "To calculate the difference in hours, I need to know where you live."
 
             dispatcher.utter_message(
                 text=msg,
@@ -477,7 +519,8 @@ class ActionTimeDifference(Action):
                 msg = "I didn't understand which timezone you want to compare with. Choose one of the availables ones:"
             elif current_language == 'de':
                 msg = "Ich verstehe nicht, mit welcher Zeitzone Sie vergleichen möchten. Wählen Sie eine der verfügbaren aus:"
-
+            else:
+                msg = "I didn't understand which timezone you want to compare with. Choose one of the availables ones:"
 
             dispatcher.utter_message(
                 text=msg,
@@ -496,6 +539,8 @@ class ActionTimeDifference(Action):
                 msg = f"I didn't recognize {timezone_to}. Choose one of the available ones:"
             elif current_language == 'de':
                 msg = f"Ich habe {timezone_to} nicht wiedererkannt. Wählen Sie eine der verfügbaren aus:"
+            else:
+                msg = f"I didn't recognize {timezone_to}. Choose one of the available ones:"
 
             dispatcher.utter_message(
                 text=msg,
@@ -522,6 +567,8 @@ class ActionTimeDifference(Action):
                 msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + ", there is no time difference."
             elif current_language == 'de':
                 msg = f"Zwischen " + timezone_in.capitalize() + " und " + timezone_to.capitalize() + " gibt es keinen Zeitunterschied."
+            else:
+                msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + ", there is no time difference."
 
         elif diff_hours == 1:
             if current_language == 'pt':
@@ -530,6 +577,8 @@ class ActionTimeDifference(Action):
                 msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + ", there is only 1 hour difference."
             elif current_language == 'de':
                 msg = f"Zwischen " + timezone_in.capitalize() + " und " + timezone_to.capitalize() + " gibt es nur eine Stunde Unterschied."
+            else:
+                msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + ", there is only 1 hour difference."
 
         else:
             if current_language == 'pt':
@@ -538,6 +587,8 @@ class ActionTimeDifference(Action):
                 msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + f", there is a {min(diff_hours, 24-diff_hours)} hours difference."
             elif current_language == 'de':
                 msg = f"Zwischen " + timezone_in.capitalize() + " und " + timezone_to.capitalize() + f", gibt es {min(diff_hours, 24-diff_hours)} Stunden Unterschied."
+            else:
+                msg = f"Among " + timezone_in.capitalize() + " and " + timezone_to.capitalize() + f", there is a {min(diff_hours, 24-diff_hours)} hours difference."
 
         dispatcher.utter_message(text=msg)
 
